@@ -1,0 +1,13 @@
+
+custom-netty:
+  read-timeout:
+  write-timeout:
+  boss-thread-count: 2
+  worker-thread-count: 4
+  selector-count: 2
+
+
+spring:
+  application:
+    name: relay-api
+
