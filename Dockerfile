@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 LABEL authors="volka"
 
-ENTRYPOINT ["java", "-Xms1G", "-Xmx2G", "-XX:MaxDirectMemorySize=1G", "-jar", "app.jar"]
+ENV JAVA_TOOL_OPTIONS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:MaxDirectMemorySize=1g -XX:+UseG1GC"
+ENTRYPOINT ["java", "-jar", "app.jar"]
 
 
