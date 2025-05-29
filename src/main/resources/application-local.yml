@@ -1,12 +1,15 @@
 
+spring:
+  netty:
+    leak-detection: paranoid
+
 custom-netty:
-  read-timeout:
-  write-timeout:
+  read-timeout: 4000
+  write-timeout: 4000
   worker-thread-count: 4
   selector-count: 2
+  daemon-thread: false
 
+external-system:
 
-spring:
-  application:
-    name: relay-api
 

@@ -1,12 +1,11 @@
 
+spring:
+  netty:
+    leak-detection: disabled
+
 custom-netty:
   read-timeout:
   write-timeout:
   worker-thread-count: 4
   selector-count: 2
-
-
-spring:
-  application:
-    name: relay-api
 
