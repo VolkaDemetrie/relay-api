@@ -14,7 +14,6 @@ import java.time.Duration;
 public class CustomNettyProperties {
     private int readTimeout;
     private int writeTimeout;
-    private int bossThreadCount;
     private int workerThreadCount;
     private int selectorCount;
 

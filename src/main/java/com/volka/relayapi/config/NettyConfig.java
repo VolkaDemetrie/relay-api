@@ -1,6 +1,7 @@
 package com.volka.relayapi.config;
 
 import com.volka.relayapi.properties.CustomNettyProperties;
+import io.netty.buffer.PooledByteBufAllocator;
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import io.netty.handler.timeout.WriteTimeoutHandler;
@@ -22,9 +23,14 @@ public class NettyConfig {
     }
 
 
+    /**
+     * yml 설정 + 추가 옵션
+     * @return
+     */
     @Bean
     public WebServerFactoryCustomizer<NettyReactiveWebServerFactory> nettyCustomizer() {
         return factory -> factory.addServerCustomizers(httpServer -> httpServer
+                .option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT) // 다이렉트 버퍼풀 사용
                 .runOn(LoopResources.create(
                         "netty",
                         customNettyProperties.getSelectorCount(), // selectorCount 는 보스 쓰레드 역할
@@ -37,5 +43,4 @@ public class NettyConfig {
                 }))
         );
     }
-
 }

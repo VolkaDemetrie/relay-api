@@ -10,7 +10,7 @@ server:
     idle-timeout: 30s
 #    max-keep-alive-requests: 100 # TCP 커넥션 별 최대 HTTP 요청 수. 초과 시 연결 종료 (디폴트 무제한)
 #    validate-headers: true # HTTP 요청 헤더 유효성 검사. 기본 true
-    initial-buffer-size: # HTTP 요청 디코딩 시 사용할 초기 버퍼 크기 지정.
+#    initial-buffer-size: # HTTP 요청 디코딩 시 사용할 초기 버퍼 크기 지정. -> 기본 128B
 #    max-initial-line-length: # HTTP 요청 첫번째 라인 최대 길이 설정 (HTTP_METHOD /path HTTP/1.1 등의 HTTP 메시지 첫라인) -> 기본값 4kB
 #    h2c-max-content-length: # HTTP 1.1 -> 2 로 클리어 텍스트 업그레이드(H2C) 요청 시 허용되는 최대 콘텐츠 길이 지정. -> 기본값 0B(허용 안함)
 
