@@ -16,14 +16,18 @@ import java.time.Duration;
 @Configuration
 public class WebClientConfig {
 
-    private final ExternalSystemProperties externalSystemProperties;
     private static final int MAX_CONNECTIONS = 4000;
     private static final int PENDING_ACQUIRE_MAX_COUNT = 1000;
+    private final ExternalSystemProperties externalSystemProperties;
 
     public WebClientConfig(ExternalSystemProperties externalSystemProperties) {
         this.externalSystemProperties = externalSystemProperties;
     }
 
+    /**
+     * 연동 포인트 정해진 후 작업
+     * @return
+     */
     @Bean
     public WebClient relayClient() {
 
@@ -42,5 +46,10 @@ public class WebClientConfig {
                 );
 
         ReactorClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
+
+        return WebClient.builder()
+                .clientConnector(connector)
+                .baseUrl("localhost:8090/relay-api/api/v1")
+                .build();
     }
 }
