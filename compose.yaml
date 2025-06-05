@@ -1,5 +1,6 @@
 services:
-  mysql:
+  relay-mysql:
+    container_name: relay-mysql
     image: 'mysql:latest'
     environment:
       - 'MYSQL_DATABASE=mydatabase'
@@ -7,14 +8,16 @@ services:
       - 'MYSQL_ROOT_PASSWORD=verysecret'
       - 'MYSQL_USER=myuser'
     ports:
-      - '3306'
-  redis:
+      - '3306:3306'
+  relay-redis:
+    container_name: relay-redis
     image: 'redis:latest'
     ports:
-      - '6379'
-  rabbitmq:
+      - '6379:6379'
+  relay-mq:
+    container_name: relay-mq
     image: 'rabbitmq:latest'
     ports:
-      - '5672'
-      - '15672'
-      - '25672'
+      - '5672:5672'
+      - '15672:15672'
+      - '25672:25672'

@@ -10,6 +10,4 @@ custom-netty:
   selector-count: 2
   daemon-thread: false
 
-external-system:
-
 
