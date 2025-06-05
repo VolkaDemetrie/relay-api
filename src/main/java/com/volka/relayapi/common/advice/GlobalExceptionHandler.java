@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.support.WebExchangeBindException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
@@ -29,13 +30,13 @@ public class GlobalExceptionHandler {
      * TODO :: 예외코드 메시지 정의 후 수정
      * @return
      */
-    @ExceptionHandler(exception = {IllegalArgumentException.class, IllegalAccessException.class, BindException.class, ValidationException.class})
-    public Mono<ResponseEntity<?>> handleValidation() {
+    @ExceptionHandler(exception = {IllegalArgumentException.class, IllegalAccessException.class, BindException.class, ValidationException.class, WebExchangeBindException.class})
+    public Mono<ResponseEntity<StandardResponseDto<?>>> handleValidation() {
         return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(StandardResponseDto.fail(ResponseCode.FAIL)));
     }
 
     @ExceptionHandler(exception = BizException.class)
-    public Mono<ResponseEntity<?>> handleBizException(ServerWebExchange exchange, BizException e) {
+    public Mono<ResponseEntity<StandardResponseDto<?>>> handleBizException(ServerWebExchange exchange, BizException e) {
         if (e.getCause() != null) log.error(e.getCause().getMessage());
 
         return Mono.just(
@@ -45,7 +46,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(exception = Exception.class)
-    public Mono<ResponseEntity<?>> handleException(Exception e) {
+    public Mono<ResponseEntity<StandardResponseDto<?>>> handleException(Exception e) {
         return Mono.just(
                 ResponseEntity.internalServerError()
                         .body(StandardResponseDto.fail(ResponseCode.FAIL))

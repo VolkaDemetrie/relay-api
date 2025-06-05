@@ -2,7 +2,12 @@
 spring:
   netty:
     leak-detection: paranoid
-
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      connect-timeout: 3000
+      timeout: 3000 # read timeout
 custom-netty:
   read-timeout: 4000
   write-timeout: 4000
