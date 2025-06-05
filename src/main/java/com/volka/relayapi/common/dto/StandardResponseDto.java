@@ -19,8 +19,8 @@ public class StandardResponseDto<T> {
     }
 
     private StandardResponseDto(T data) {
-        this.code = ResponseCode.SUCCESS.getCode();
-        this.message = ResponseCode.SUCCESS.getMessage();
+        this.code = ResponseCode.SUCCESS.code();
+        this.message = ResponseCode.SUCCESS.message();
         this.data = data;
     }
 
@@ -29,11 +29,11 @@ public class StandardResponseDto<T> {
     }
 
     public static <T> StandardResponseDto<T> successIfEmpty() {
-        return new StandardResponseDto<>(ResponseCode.SUCCESS.getCode(), ResponseCode.SUCCESS.getMessage());
+        return new StandardResponseDto<>(ResponseCode.SUCCESS.code(), ResponseCode.SUCCESS.message());
     }
 
     public static <T> StandardResponseDto<T> fail(ResponseCode responseCode) {
-        return new StandardResponseDto<>(responseCode.getCode(), responseCode.getMessage());
+        return new StandardResponseDto<>(responseCode.code(), responseCode.message());
     }
 
     public static <T> StandardResponseDto<T> fail(String code, String message) {

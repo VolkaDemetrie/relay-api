@@ -2,7 +2,8 @@ package com.volka.relayapi.common.constant;
 
 public enum ResponseCode {
     SUCCESS("SUCCESS", "SUCCESS"),
-    FAIL("COE0000", "FAIL")
+    FAIL("COE0000", "FAIL"),
+    VALID_FAIL("COE0001", "VALID_FAIL")
     ;
 
     private final String code;
@@ -13,11 +14,11 @@ public enum ResponseCode {
         this.message = message;
     }
 
-    public String getCode() {
+    public String code() {
         return code;
     }
 
-    public String getMessage() {
+    public String message() {
         return message;
     }
 }

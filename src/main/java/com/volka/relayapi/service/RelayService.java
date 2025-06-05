@@ -1,5 +1,6 @@
 package com.volka.relayapi.service;
 
+import com.volka.relayapi.common.constant.ResponseCode;
 import com.volka.relayapi.model.Relay;
 import com.volka.relayapi.repository.RelayRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,8 @@ public class RelayService {
     private final RelayRepository repository;
 
     public Mono<Relay> getRelayById(Long id) {
-        return repository.findById(id);
+        return repository.findById(id)
+                .switchIfEmpty(Mono.error(new IllegalArgumentException(ResponseCode.VALID_FAIL.code())));
     }
 
     public Flux<Relay> getAllRelays() {
@@ -30,7 +32,7 @@ public class RelayService {
 
     public Mono<Long> modify(Long id, String name, String path) {
         return repository.findById(id)
-                .switchIfEmpty(Mono.error(new IllegalArgumentException("Not found")))
+                .switchIfEmpty(Mono.error(new IllegalArgumentException(ResponseCode.VALID_FAIL.code())))
                 .flatMap(record -> {
                     record.modify(name, path);
                     return repository.save(record)
