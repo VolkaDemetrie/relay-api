@@ -3,10 +3,10 @@ services:
     container_name: relay-mysql
     image: 'mysql:latest'
     environment:
-      - 'MYSQL_DATABASE=mydatabase'
-      - 'MYSQL_PASSWORD=secret'
-      - 'MYSQL_ROOT_PASSWORD=verysecret'
-      - 'MYSQL_USER=myuser'
+      - 'MYSQL_DATABASE=relay'
+      - 'MYSQL_ROOT_PASSWORD=root123'
+      - 'MYSQL_USER=relay_user'
+      - 'MYSQL_PASSWORD=relay_pass'
     ports:
       - '3306:3306'
   relay-redis:
