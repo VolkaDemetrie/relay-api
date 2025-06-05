@@ -29,28 +29,40 @@ ext {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
-    implementation 'org.springframework.boot:spring-boot-starter-rsocket'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    implementation 'org.springframework.amqp:spring-rabbit-stream'
-    implementation 'org.springframework.cloud:spring-cloud-starter'
-    implementation 'org.springframework.security:spring-security-messaging'
-    implementation 'org.springframework.security:spring-security-rsocket'
+
+    // rsocket
+//    implementation 'org.springframework.boot:spring-boot-starter-rsocket'
+
+    // mq
+//    implementation 'org.springframework.amqp:spring-rabbit-stream'
+
+    // cloud
+//    implementation 'org.springframework.cloud:spring-cloud-starter'
+
+    // Security
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.security:spring-security-messaging'
+//    implementation 'org.springframework.security:spring-security-rsocket'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
+    // rdb
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'io.asyncer:r2dbc-mysql'
-    runtimeOnly 'io.micrometer:micrometer-registry-otlp'
+
+    // monitoring
+//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+//    runtimeOnly 'io.micrometer:micrometer-registry-otlp'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test'
-    testImplementation 'org.springframework.security:spring-security-test'
+//    testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 

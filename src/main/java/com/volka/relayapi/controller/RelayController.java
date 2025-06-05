@@ -16,6 +16,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.time.Duration;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -31,7 +32,7 @@ public class RelayController {
     }
 
 
-    @PostMapping("/save")
+    @PostMapping
     public Mono<ResponseEntity<StandardResponseDto<Void>>> save(@Valid @RequestBody SaveRequest request) {
         return relayService.save(request.name(), request.path())
                 .flatMap(id -> Responses.created(id, "/api/v1/relay"));

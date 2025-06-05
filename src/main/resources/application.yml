@@ -17,6 +17,8 @@ server:
 spring:
   application:
     name: relay-api
+  webflux:
+    base-path: /${spring.application.name}
   http: # Webflux 서버만 설정. spring.codec은 client + server
     codecs:
       max-in-memory-size: 20MB

@@ -12,7 +12,7 @@ spring:
       max-size: 20
   sql:
     init:
-      mode: always
+      mode: never
       schema-locations: sql/schema.sql
   data:
     r2dbc:
@@ -23,12 +23,9 @@ spring:
       port: 6379
       connect-timeout: 3000
       timeout: 3000 # read timeout
-custom-netty:
-  read-timeout: 4000
-  write-timeout: 4000
-  worker-thread-count: 4
-  selector-count: 2
-  daemon-thread: false
+#  jmx:
+#    enabled: true
+
 logging:
   level:
     root: debug
@@ -36,3 +33,23 @@ logging:
     level: "%5p [TRACE_ID:%X{trace_id} SPAN_ID:%X{span_id}]"
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
 
+#management:
+#  endpoint:
+#    health:
+#      probes:
+#        enabled: true
+#  endpoints:
+#    jmx:
+#      exposure:
+#        include: '*'
+#  jmx:
+#    metrics:
+#      export:
+#        enabled: true
+
+custom-netty:
+  read-timeout: 4000
+  write-timeout: 4000
+  worker-thread-count: 4
+  selector-count: 2
+  daemon-thread: false

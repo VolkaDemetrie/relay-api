@@ -1,5 +1,3 @@
-
-
 spring:
   netty:
     leak-detection: advanced
@@ -13,7 +11,7 @@ spring:
       max-size: 20
   sql:
     init:
-      mode: always
+      mode: never
       schema-locations: sql/schema.sql
   data:
     r2dbc:
@@ -24,7 +22,8 @@ spring:
       port: 6379
       connect-timeout: 3000
       timeout: 3000 # read timeout
-
+  jmx:
+    enabled: true
 custom-netty:
   read-timeout:
   write-timeout:
