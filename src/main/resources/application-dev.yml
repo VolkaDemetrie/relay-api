@@ -10,4 +10,11 @@ custom-netty:
   worker-thread-count: 4
   selector-count: 2
 
-
+logging:
+  level:
+    root: debug
+  pattern:
+    level: "%5p [TRACE_ID:%X{trace_id} SPAN_ID:%X{span_id}]"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+  charset:
+    file: UTF-8
