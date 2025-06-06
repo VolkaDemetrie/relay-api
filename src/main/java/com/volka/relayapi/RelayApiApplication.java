@@ -1,12 +1,12 @@
 package com.volka.relayapi;
 
 import com.volka.relayapi.properties.CustomNettyProperties;
-import com.volka.relayapi.properties.ExternalSystemProperties;
+import com.volka.relayapi.properties.ExternalRelayApiProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-@EnableConfigurationProperties({CustomNettyProperties.class, ExternalSystemProperties.class})
+@EnableConfigurationProperties({CustomNettyProperties.class, ExternalRelayApiProperties.class})
 @SpringBootApplication
 public class RelayApiApplication {
 

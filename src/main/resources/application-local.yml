@@ -26,6 +26,17 @@ spring:
 #  jmx:
 #    enabled: true
 
+external:
+  relay:
+    base-url: http://localhost:8090/relay-api
+    uris:
+      get-one-path: /api/v1/relay/{relayId}
+      get-all-path: /api/v1/relay
+      save-path: /api/v1/relay
+      modify-path: /api/v1/relay/{relayId}
+      delete-path: /api/v1/relay/{relayId}
+
+
 logging:
   level:
     root: debug
