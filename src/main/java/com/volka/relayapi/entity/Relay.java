@@ -1,4 +1,4 @@
-package com.volka.relayapi.model;
+package com.volka.relayapi.entity;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

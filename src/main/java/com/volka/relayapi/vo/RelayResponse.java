@@ -1,6 +1,6 @@
 package com.volka.relayapi.vo;
 
-import com.volka.relayapi.model.Relay;
+import com.volka.relayapi.entity.Relay;
 
 public record RelayResponse(
         Long id,

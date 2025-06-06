@@ -1,11 +1,13 @@
 package com.volka.relayapi.service;
 
 import com.volka.relayapi.common.constant.ResponseCode;
-import com.volka.relayapi.model.Relay;
+import com.volka.relayapi.entity.Relay;
 import com.volka.relayapi.repository.RelayRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -15,6 +17,7 @@ import reactor.core.publisher.Mono;
 public class RelayService {
 
     private final RelayRepository repository;
+    private final TransactionalOperator transactionalOperator;
 
     public Mono<Relay> getRelayById(Long id) {
         return repository.findById(id)
@@ -27,6 +30,7 @@ public class RelayService {
 
     public Mono<Long> save(String name, String path) {
         return repository.save(Relay.createNew(name, path))
+                .as(transactionalOperator::transactional)
                 .map(Relay::getId);
     }
 
@@ -36,11 +40,12 @@ public class RelayService {
                 .flatMap(record -> {
                     record.modify(name, path);
                     return repository.save(record)
+                            .as(transactionalOperator::transactional)
                             .map(Relay::getId);
                 });
     }
 
     public Mono<Void> deleteById(Long id) {
-        return repository.deleteById(id);
+        return repository.deleteById(id).as(transactionalOperator::transactional);
     }
 }
