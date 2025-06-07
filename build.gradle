@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+    compileOnly 'org.projectlombok:lombok'
 
     // rsocket
 //    implementation 'org.springframework.boot:spring-boot-starter-rsocket'
@@ -41,23 +42,27 @@ dependencies {
 //    implementation 'org.springframework.amqp:spring-rabbit-stream'
 
     // cloud
-//    implementation 'org.springframework.cloud:spring-cloud-starter'
+    implementation 'org.springframework.cloud:spring-cloud-starter'
 
     // Security
 //    implementation 'org.springframework.boot:spring-boot-starter-security'
 //    implementation 'org.springframework.security:spring-security-messaging'
 //    implementation 'org.springframework.security:spring-security-rsocket'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+
 
     // rdb
     runtimeOnly 'com.mysql:mysql-connector-j'
     runtimeOnly 'io.asyncer:r2dbc-mysql'
 
     // monitoring
-//    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 //    runtimeOnly 'io.micrometer:micrometer-registry-otlp'
+
+    // dev
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+    implementation 'io.projectreactor:reactor-tools:3.7.6' // Gradle 프로필 별로 나눠서 PROD 시 의존성 자체 제거
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -69,6 +74,22 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+def currentProfile = project.hasProperty('profile') ? project.getProperty('profile') : 'dev'
+
+bootJar {
+    if (currentProfile == 'prod') {
+        doFirst {
+            println "Building with profile=$currentProfile → excluding reactor-tools from jar"
+        }
+        exclude('**/reactor/tools/**')
+        // 또는 더 강하게 → build/libs 에서 reactor-tools 관련 파일 아예 제외 가능
+    } else {
+        doFirst {
+            println "Building with profile=$currentProfile → including all dependencies"
+        }
     }
 }
 

@@ -3,7 +3,7 @@ FROM gradle:8.4-jdk21-alpine as builder
 
 WORKDIR /app
 COPY . .
-RUN gradle clean bootJar --no-daemon
+RUN gradle clean bootJar -Pprofile=prod --no-daemon
 
 # 2단계: 런타임 - Amazon Corretto + Alpine
 FROM amazoncorretto:21.0.7-alpine3.21
@@ -15,5 +15,6 @@ LABEL authors="volka"
 WORKDIR /app
 COPY --from=builder /app/build/libs/*.jar app.jar
 
+# 노드당 2 core 4G
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=50.0 -XX:MaxDirectMemorySize=1g -XX:+UseG1GC"
-ENTRYPOINT ["java $JAVA_OPTS -jar app.jar"]
+ENTRYPOINT ["java $JAVA_OPTS -Dsrping.profiles.active=prod -jar app.jar"]

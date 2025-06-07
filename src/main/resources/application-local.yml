@@ -1,4 +1,3 @@
-
 spring:
   netty:
     leak-detection: paranoid
@@ -40,6 +39,12 @@ external:
 logging:
   level:
     root: debug
+    web: debug
+    sun.rmi: info
+    javax.management: info
+    javax.management.remote.rmi: info
+    sun.rmi.transport.tcp: info
+    sun.rmi.loader: info
   pattern:
     level: "%5p [TRACE_ID:%X{trace_id} SPAN_ID:%X{span_id}]"
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
